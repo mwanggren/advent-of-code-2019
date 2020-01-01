@@ -46,6 +46,15 @@ int Computer::tick()
     return lValue;
 }
 
+bool Computer::setInstructionPointer(int aInstructionPointer)
+{
+    if (aInstructionPointer < (int)mMemory.size()) {
+        mInstructionPointer = aInstructionPointer;
+        return true;
+    }
+    return false;
+}
+
 bool Computer::runUntilHalt()
 {
     while (mInstructionPointer < (int)mMemory.size())
@@ -135,15 +144,6 @@ bool Computer::runUntilHalt()
             default:
                 return false;
         }
-    }
-    return false;
-}
-
-bool Computer::setInstructionPointer(int aInstructionPointer)
-{
-    if (aInstructionPointer < (int)mMemory.size()) {
-        mInstructionPointer = aInstructionPointer;
-        return true;
     }
     return false;
 }
