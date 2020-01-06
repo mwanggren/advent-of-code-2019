@@ -4,42 +4,27 @@
 #include <IOSystem.hpp>
 #include <vector>
 
-// NOTE: Got AddressSanitizer: heap-buffer-overflow when doing it the way I wanted
-//       at first, will have to dig into it more. Now it's a lot more ugly. Clean up!
-
 struct IORigged : public IOSystem
 {
-    // int readInput()
-    // {
-    //     int retval = mInputs.at(0);
-    //     mInputs.erase(mInputs.begin());
-    //     return retval;
-    // }
+    // struct IOSystem:
 
-    int readInput()
+    int readInput() override
     {
-        int retval = mInputCounter == 0 ? mFirstInput : mSecondInput;
-        mInputCounter++;
+        int retval = mInputs.at(0);
+        mInputs.erase(mInputs.begin());
         return retval;
     }
 
-    void writeOutput(int aValue)
+    void writeOutput(int aValue) override
     {
         mLastOutput = aValue;
     }
 
-    // void addInput(int aValue)
-    // {
-    //     mInputs.push_back(aValue);
-    // }
-    void setFirstInput(int aValue)
+    // Rigging helpers:
+
+    void addInput(int aValue)
     {
-        mFirstInput = aValue;
-        mInputCounter = 0;
-    }
-    void setSecondInput(int aValue)
-    {
-        mSecondInput = aValue;
+        mInputs.push_back(aValue);
     }
 
     int readLastOutput()
@@ -47,10 +32,8 @@ struct IORigged : public IOSystem
         return mLastOutput;
     }
 
-    // std::vector<int> mInputs;
-    int mFirstInput;
-    int mSecondInput;
-    int mInputCounter;
+private:
+    std::vector<int> mInputs;
     int mLastOutput;
 };
 

@@ -6,9 +6,7 @@
 #include <memory>
 #include <cstdlib>
 
-// NOTE: There is some seriously ugly code here that should be cleaned up!
-//       I got a AddressSanitizer: heap-buffer-overflow error when using 
-//       vector of inputs in rigged IO system, must investigate!
+// NOTE: Not my prettiest code in this one...
 
 int main(int argc, char* argv[])
 {
@@ -42,10 +40,8 @@ int main(int argc, char* argv[])
                         for(int ix = 0; ix < 5; ix++)
                         {
                             IORigged lRiggedIOSystem;
-//                            lRiggedIOSystem.addInput(lPhaseSettings[ix]);
-//                            lRiggedIOSystem.addInput(lCurrentThrust);
-                            lRiggedIOSystem.setFirstInput(lPhaseSettings[ix]);
-                            lRiggedIOSystem.setSecondInput(lCurrentThrust);
+                            lRiggedIOSystem.addInput(lPhaseSettings[ix]);
+                            lRiggedIOSystem.addInput(lCurrentThrust);
                             Computer lComputer (&lRiggedIOSystem);
                             if (!(lComputer.loadProgramFromFile(lInputFile)))
                                 std::cout << "failed to load program from file" << std::endl;
@@ -54,11 +50,7 @@ int main(int argc, char* argv[])
                             lCurrentThrust = lRiggedIOSystem.readLastOutput();
                         }
                         if (lCurrentThrust > lMaxThrust) 
-                        {
-                            std::cout << "New highest " << lCurrentThrust << " was " << lMaxThrust << " seq: " << 
-                            lPhaseSettings[0] << "," << lPhaseSettings[1] << "," << lPhaseSettings[2] << "," << lPhaseSettings[3] << "," << lPhaseSettings[4] << std::endl;
                             lMaxThrust = lCurrentThrust;
-                        }
                     }
                 }
             }
