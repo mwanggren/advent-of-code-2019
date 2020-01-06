@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(Day5Part2 LANGUAGES CXX)
+project(Day7Part1 LANGUAGES CXX)
 
 add_compile_options(-fsanitize=address,undefined)
 # The following should not be needed? I need it on MacOS...

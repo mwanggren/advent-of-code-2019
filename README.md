@@ -11,3 +11,4 @@ Tools used:
 * CMake
 * Catch2
 * Trompeloeil
+* Clang, with sanitizers
